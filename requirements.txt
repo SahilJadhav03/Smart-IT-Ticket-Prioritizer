@@ -17,3 +17,9 @@ pandas>=2.0.0
 
 # Testing
 pytest==7.3.1
+
+# Production Server
+gunicorn==21.2.0
+
+# Environment variables
+python-dotenv==1.0.0

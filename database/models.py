@@ -64,8 +64,16 @@ def init_db(app):
     Args:
         app: The Flask application
     """
-    # Configure SQLite database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tickets.db'
+    import os
+    
+    # Configure SQLite database - use environment variable if available
+    database_url = os.environ.get('DATABASE_URL', 'sqlite:///tickets.db')
+    
+    # Handle SQLite URL for compatibility
+    if database_url.startswith('postgres://'):
+        database_url = database_url.replace('postgres://', 'postgresql://', 1)
+    
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     # Initialize the app with the database

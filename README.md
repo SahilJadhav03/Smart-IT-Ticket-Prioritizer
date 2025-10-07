@@ -191,6 +191,109 @@ print(f"Priority: {result['priority']}, Team: {result['team']}")
 - If required fields are missing, the API returns a 400 Bad Request with an error message
 - Server errors return a 500 status code with an error message
 
+## Deployment
+
+### Local Deployment with Environment Variables
+
+For local development, create a `.env` file in the project root:
+
+```
+FLASK_ENV=development
+DATABASE_URL=sqlite:///tickets.db
+SECRET_KEY=your-secret-key-for-local-development
+```
+
+### Deploying to Render (Free)
+
+1. Create a Render account at [render.com](https://render.com)
+
+2. Connect your GitHub repository with Render
+
+3. Create a new Web Service:
+   - Select your GitHub repository
+   - Use the following settings:
+     - **Name**: Smart Ticket Prioritizer
+     - **Environment**: Python
+     - **Build Command**: `pip install -r requirements.txt && python -m nltk.downloader punkt stopwords wordnet && python -m model.train_model`
+     - **Start Command**: `gunicorn app:app`
+
+4. Add the following environment variables:
+   - `FLASK_ENV`: production
+   - `DATABASE_URL`: sqlite:///tickets.db
+   - `SECRET_KEY`: (Generate a random string)
+
+5. Deploy your application. Render will automatically build and deploy your app.
+
+### Deploying to PythonAnywhere (Free)
+
+1. Sign up for a free account at [PythonAnywhere](https://www.pythonanywhere.com/)
+
+2. Clone your repository from GitHub:
+   ```
+   git clone https://github.com/yourusername/Smart-Ticket-Prioritizer.git
+   ```
+
+3. Create a virtual environment and install dependencies:
+   ```
+   mkvirtualenv --python=python3.9 ticketapp
+   pip install -r requirements.txt
+   python -m nltk.downloader punkt stopwords wordnet
+   python -m model.train_model
+   ```
+
+4. Create a WSGI configuration file:
+   - Go to the "Web" tab in PythonAnywhere
+   - Click "Add a new web app"
+   - Choose "Flask" and select your Python version
+   - Set the path to your Flask app: `/home/yourusername/Smart-Ticket-Prioritizer/app.py`
+
+5. Modify the WSGI file to include:
+   ```python
+   import sys
+   import os
+   
+   path = '/home/yourusername/Smart-Ticket-Prioritizer'
+   if path not in sys.path:
+       sys.path.append(path)
+   
+   os.environ['SECRET_KEY'] = 'your-secret-key'
+   os.environ['FLASK_ENV'] = 'production'
+   os.environ['DATABASE_URL'] = 'sqlite:///tickets.db'
+   
+   from app import app as application
+   ```
+
+6. Reload your web app to apply changes.
+
+### Deploying to Railway (Free)
+
+1. Create an account at [Railway](https://railway.app/)
+
+2. Install the Railway CLI:
+   ```
+   npm i -g @railway/cli
+   ```
+
+3. Login to Railway:
+   ```
+   railway login
+   ```
+
+4. Initialize your project:
+   ```
+   railway init
+   ```
+
+5. Deploy your application:
+   ```
+   railway up
+   ```
+
+6. Set the environment variables in the Railway dashboard:
+   - `FLASK_ENV`: production
+   - `DATABASE_URL`: sqlite:///tickets.db
+   - `SECRET_KEY`: (Generate a random string)
+
 ## Running Tests
 
 Execute the test suite to verify all components are working correctly:

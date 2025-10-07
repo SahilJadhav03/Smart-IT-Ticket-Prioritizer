@@ -9,6 +9,10 @@ import sys
 import logging
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.exceptions import BadRequest
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Add parent directory to path to import from other modules
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -28,6 +32,9 @@ logging.basicConfig(
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Configure app from environment variables
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-for-development')
 
 # Initialize the database
 init_db(app)
@@ -177,5 +184,9 @@ if __name__ == '__main__':
         train_model()
         logging.info("Model training completed.")
     
-    # Run the app
-    app.run(debug=True)
+    # Get port from environment variable or use default
+    port = int(os.environ.get('PORT', 5000))
+    
+    # Run the app - debug mode only in development
+    debug_mode = os.environ.get('FLASK_ENV') == 'development'
+    app.run(host='0.0.0.0', port=port, debug=debug_mode)
