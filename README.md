@@ -1,6 +1,12 @@
 # Smart IT Ticket Prioritizer
 
-A Flask-based web application that automatically classifies IT support tickets by priority level (Critical, High, Medium, Low) and assigns them to relevant teams using Natural Language Processing (NLP) and Machine Learning (ML) techniques.
+![Priority Levels](https://img.shields.io/badge/Priority%20Levels-4-blue)
+![Teams](https://img.shields.io/badge/Teams-4-green)
+![Python](https://img.shields.io/badge/Python-3.x-yellow)
+![Flask](https://img.shields.io/badge/Flask-2.x-red)
+![ML](https://img.shields.io/badge/ML-scikit--learn-orange)
+
+A Flask-based web application that automatically classifies IT support tickets by priority level (Critical, High, Medium, Low) and assigns them to relevant teams using Natural Language Processing (NLP) and Machine Learning (ML) techniques. This tool helps IT departments efficiently manage and respond to support requests based on urgency and required expertise.
 
 ## Features
 
@@ -59,8 +65,8 @@ Smart-Ticket-Prioritizer/
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/smart-ticket-prioritizer.git
-   cd smart-ticket-prioritizer
+   git clone https://github.com/SahilJadhav03/Smart-ticket-it.git
+   cd Smart-ticket-it
    ```
 
 2. Create and activate a virtual environment:
@@ -92,28 +98,54 @@ Smart-Ticket-Prioritizer/
 6. Access the application:
    Open your browser and navigate to `http://127.0.0.1:5000`
 
-## Usage
+## How to Use the Tool
 
-### Web Interface
+### Web Interface Walkthrough
 
 1. **Submit a Ticket**:
-   - Navigate to the "Submit Ticket" page
-   - Fill in the ticket title and description
-   - Submit the form to automatically classify and assign the ticket
+   - Navigate to the "Submit Ticket" page by clicking the "Submit Ticket" link in the navigation bar
+   - Fill in the ticket title with a concise description of the issue (e.g., "Cannot connect to WiFi")
+   - Provide a detailed description in the description field (e.g., "My laptop was working fine yesterday, but now I cannot connect to the company WiFi network. I've tried restarting my computer but it didn't help.")
+   - As you type, the system will show a real-time preview of the predicted priority and team assignment
+   - Click the "Submit Ticket" button to create and classify your ticket
+   - You'll be redirected to the homepage where you can see your newly created ticket
 
 2. **View Tickets**:
-   - The homepage shows recent tickets
-   - Use the "View All Tickets" page to see all tickets with filtering options
+   - The homepage shows the 10 most recent tickets with their priority levels and team assignments
+   - Priority levels are color-coded: 
+     - 🔴 Critical (Red): System-wide issues needing immediate attention
+     - 🟠 High (Orange): Urgent issues affecting multiple users
+     - 🟡 Medium (Yellow): Important issues affecting a few users
+     - 🟢 Low (Green): Non-urgent requests or minor issues
+   - Click on "View All Tickets" to see the complete ticket history
+   - On the tickets page, you can:
+     - Search for specific tickets using the search box
+     - Filter tickets by priority (Critical, High, Medium, Low)
+     - Filter tickets by team (Network, Hardware, Software, Security)
+     - Click on ticket rows to see their full details
 
-### API Usage
+3. **Dashboard Features**:
+   - Tickets are displayed with most recent first
+   - Each ticket shows:
+     - Title and a preview of the description
+     - Priority level with color coding
+     - Assigned team
+     - Creation date and time
+   - The tickets view provides a comprehensive overview of all IT support requests
 
-The application provides a REST API endpoint for programmatic ticket classification.
+### API Usage for Integration
+
+The application provides a REST API endpoint for programmatic ticket classification, allowing you to integrate the classification system with other applications or services.
 
 **Endpoint**: `/api/classify`
 
 **Method**: POST
 
-**Request Body**:
+**Request Format**:
+- Content-Type: application/json
+- Required fields: `title` and `description`
+
+**Request Body Example**:
 ```json
 {
   "title": "Cannot connect to WiFi",
@@ -121,7 +153,11 @@ The application provides a REST API endpoint for programmatic ticket classificat
 }
 ```
 
-**Response**:
+**Response Format**:
+- Content-Type: application/json
+- Returns: `title`, `priority`, and `team` fields
+
+**Response Example**:
 ```json
 {
   "title": "Cannot connect to WiFi",
@@ -130,10 +166,30 @@ The application provides a REST API endpoint for programmatic ticket classificat
 }
 ```
 
-Example using curl:
+**Example API Call Using curl**:
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"title": "Cannot connect to WiFi", "description": "My laptop was working fine yesterday, but now I cannot connect to the company WiFi network."}' http://127.0.0.1:5000/api/classify
 ```
+
+**Example API Call Using Python**:
+```python
+import requests
+import json
+
+url = "http://127.0.0.1:5000/api/classify"
+data = {
+    "title": "Cannot connect to WiFi",
+    "description": "My laptop was working fine yesterday, but now I cannot connect to the company WiFi network."
+}
+
+response = requests.post(url, json=data)
+result = response.json()
+print(f"Priority: {result['priority']}, Team: {result['team']}")
+```
+
+**Error Handling**:
+- If required fields are missing, the API returns a 400 Bad Request with an error message
+- Server errors return a 500 status code with an error message
 
 ## Running Tests
 
@@ -152,15 +208,40 @@ python -m tests.test_text_preprocessing
 python -m tests.test_team_assignment
 ```
 
-## Model Training
+## Example Ticket Classifications
 
-The application includes a default trained model. If you want to retrain the model:
+See [EXAMPLES.md](EXAMPLES.md) for sample ticket classifications showing how the system categorizes different types of IT support requests by priority and team.
+
+## Model Training and Customization
+
+### Retraining the Model
+
+The application includes a default trained model based on sample IT tickets. To retrain the model with your own data:
 
 1. Modify the `model/sample_tickets.csv` file with your own training data
+   - Keep the same format: ID, Title, Description, Priority, Team
+   - Ensure priority levels are one of: Critical, High, Medium, Low
+   - Ensure team assignments are one of: network, hardware, software, security
+
 2. Run the training script:
    ```
    python -m model.train_model
    ```
+
+3. The script will:
+   - Load your custom ticket data
+   - Preprocess the text using the NLP pipeline
+   - Train a new classification model
+   - Save the model to `model/ticket_classifier.pkl`
+   - The new model will be used automatically the next time the application runs
+
+### Customizing Priority Classification
+
+The model uses a TF-IDF vectorizer with Logistic Regression to classify tickets. You can modify the classifier parameters in `model/classifier.py` to adjust:
+
+- Feature extraction settings (max_features, ngram_range, etc.)
+- Classification algorithm and parameters
+- Priority thresholds and definitions
 
 ## Customization
 
