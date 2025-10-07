@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart IT Ticket Prioritizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Smart IT Ticket Prioritizer</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
+                    <li><a href="{{ url_for('submit_ticket') }}">Submit Ticket</a></li>
+                    <li><a href="{{ url_for('view_tickets') }}">View All Tickets</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h2>IT Support Ticket Management</h2>
+            <p>Submit your IT support requests and our smart system will automatically prioritize and route them to the appropriate team.</p>
+            <a href="{{ url_for('submit_ticket') }}" class="btn btn-primary">Submit New Ticket</a>
+        </section>
+
+        <section class="recent-tickets">
+            <h2>Recent Tickets</h2>
+            {% if tickets %}
+                <div class="ticket-list">
+                    {% for ticket in tickets %}
+                        <div class="ticket-card priority-{{ ticket.priority.lower() }}">
+                            <div class="ticket-header">
+                                <h3>{{ ticket.title }}</h3>
+                                <div class="ticket-meta">
+                                    <span class="ticket-id">#{{ ticket.id }}</span>
+                                    <span class="ticket-date">{{ ticket.created_at }}</span>
+                                </div>
+                            </div>
+                            <div class="ticket-body">
+                                <p>{{ ticket.description[:100] }}{% if ticket.description|length > 100 %}...{% endif %}</p>
+                            </div>
+                            <div class="ticket-footer">
+                                <span class="priority-badge">{{ ticket.priority }}</span>
+                                <span class="team-badge">Team: {{ ticket.team }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="no-tickets">No tickets have been submitted yet.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Smart IT Ticket Prioritizer</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

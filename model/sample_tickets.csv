@@ -1,0 +1,41 @@
+ID,Title,Description,Priority,Team
+1,Cannot connect to WiFi,"My laptop was working fine yesterday, but now I cannot connect to the company WiFi network. I've tried restarting my computer but it didn't help.",Medium,network
+2,Outlook keeps crashing,"Every time I try to open a specific email in Outlook, the application crashes. This is urgent as I need to access an important client email.",High,software
+3,Monitor not turning on,"My monitor won't turn on this morning. The power light is blinking but the screen remains black. I've checked all the connections.",Medium,hardware
+4,Website down,"Our company website is completely down. Customers are calling and complaining that they can't access our online services. This is causing significant revenue loss.",Critical,network
+5,Keyboard not working,"Several keys on my keyboard have stopped working, making it difficult to type emails and documents.",Low,hardware
+6,Suspicious emails,"I'm receiving multiple suspicious emails claiming to be from IT asking for my password. I think this might be a phishing attempt.",High,security
+7,Software installation request,"I need the latest version of Adobe Photoshop installed on my workstation for a new project.",Low,software
+8,Server down,"The main application server is down. All staff are unable to access the CRM system and customer data. This is halting all operations.",Critical,network
+9,Slow computer performance,"My computer has been extremely slow for the past few days. Applications take minutes to open and frequently freeze.",Medium,software
+10,Printer not working,"The printer on the 3rd floor is not printing. There are no error messages, but documents sent to it never print.",Low,hardware
+11,Password reset request,"I forgot my password and need it reset for my account.",Low,security
+12,Blue screen error,"My computer keeps showing a blue screen and restarting. I can't get any work done.",High,software
+13,VPN connection issues,"I cannot connect to the company VPN from home. I get an authentication failed error.",Medium,network
+14,Data loss concern,"I accidentally deleted some important files and they're not in the recycle bin. Need urgent recovery.",Critical,software
+15,New employee setup,"We have a new employee starting tomorrow. Need a complete workstation setup with standard software.",Medium,hardware
+16,Virus alert,"My antivirus software is alerting about a potential virus on my computer. The computer is running very slowly.",High,security
+17,Email not sending,"I can't send emails from my account. They get stuck in the outbox.",Medium,software
+18,Network drive inaccessible,"I can't access the shared network drive where all our team documents are stored.",High,network
+19,Phone system down,"The entire VoIP phone system is down. No one can make or receive calls.",Critical,network
+20,Software license expired,"I got a notification that my Microsoft Office license has expired.",Low,software
+21,Laptop battery not charging,"My laptop battery isn't charging even when plugged in. I need to keep it plugged in all the time.",Medium,hardware
+22,Data breach concern,"I think my account credentials have been compromised as I'm seeing login attempts from unknown locations.",Critical,security
+23,Projector not working,"The projector in the main conference room isn't working and we have an important client meeting in 30 minutes.",High,hardware
+24,Internet extremely slow,"The internet connection in the office is extremely slow, affecting everyone's productivity.",High,network
+25,Application error,"I keep getting an error message when trying to save documents in our custom application.",Medium,software
+26,Suspicious activity,"I noticed unusual activity on my account with files being accessed at odd hours.",High,security
+27,Computer won't boot,"My computer won't start up at all. Just a black screen when I press the power button.",High,hardware
+28,Email synchronization issues,"My emails on my phone aren't syncing with my desktop application.",Medium,software
+29,Can't access specific website,"I can't access an important vendor website from my work computer, but it works on my phone.",Low,network
+30,Need software update,"My design software is outdated and missing features I need for a current project.",Low,software
+31,Login issues after password change,"I changed my password yesterday and now I can't log in to any system with the new password.",Medium,security
+32,Hard drive making noise,"My computer's hard drive is making strange clicking noises and running slowly.",High,hardware
+33,File permission issues,"I can't access files I need for a project due to permission restrictions.",Medium,software
+34,Network printer configuration,"Need help connecting my new laptop to the network printer.",Low,network
+35,Security certificate warning,"I'm getting security certificate warnings when accessing our intranet site.",Medium,security
+36,Broken monitor stand,"The stand on my monitor broke and it won't stay upright.",Low,hardware
+37,System crash during presentation,"Our sales demo system crashed during an important client presentation, costing us a potential deal.",Critical,software
+38,WiFi coverage issues,"There's poor WiFi coverage in the meeting rooms on the east side of the building.",Medium,network
+39,Need access to restricted database,"I need temporary access to the financial database for the quarterly audit.",Medium,security
+40,Computer overheating,"My laptop gets very hot and shuts down randomly during use.",High,hardware
